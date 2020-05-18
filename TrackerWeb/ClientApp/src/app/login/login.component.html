@@ -1,0 +1,131 @@
+<div class="loginCreate-container">
+  <div loaderId="LoginLoader" ngxUiLoaderBlurred>
+    <h1 *ngIf="!isForgotPassword">{{loginOrCreateLabel}} Account</h1>
+    <h1 *ngIf="isForgotPassword">Forgot Password</h1>
+    <br>
+    <!--Login form-->
+    <form *ngIf="isLogin && !isForgotPassword" [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
+      <div *ngIf="isInvalidLoginOrPassword" class="danger-login">
+        <div>Login or Password is invalid</div>
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submittedLoginForm && form.email.errors }" />
+        <div *ngIf="submittedLoginForm && form.email.errors" class="invalid-feedback">
+          <div *ngIf="form.email.errors.required">Email is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="password" placeholder="Password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submittedLoginForm && form.password.errors }" />
+        <div *ngIf="submittedLoginForm && form.password.errors" class="invalid-feedback">
+          <div *ngIf="form.password.errors.required">Password is required</div>
+        </div>
+      </div>
+      <input type="submit" name="login" class="login loginCreate-submit" value="Login">
+    </form>
+    <!--Register form-->
+    <div *ngIf="!isLogin && isRegisterComplete && !isForgotPassword">
+      <div>Register complete, please check your emai for confirm</div>
+    </div>
+    <form *ngIf="!isLogin && !isRegisterComplete && !isForgotPassword" [formGroup]="registerForm" (ngSubmit)="onSubmitRegister()">
+      <div *ngIf="isInvalidRegister" class="danger-login">
+        <div>Register Error please try again</div>
+      </div>
+      <div class="form-group form-row">
+        <input type="text" placeholder="First Name" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submittedRegisterForm && form.firstName.errors }" />
+        <div *ngIf="submittedRegisterForm && form.firstName.errors" class="invalid-feedback">
+          <div *ngIf="form.firstName.errors.required">First Name is required</div>
+        </div>
+      </div>
+      <div class="form-group form-row">
+        <input type="text" placeholder="Last Name" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submittedRegisterForm && form.lastName.errors }" />
+        <div *ngIf="submittedRegisterForm && form.lastName.errors" class="invalid-feedback">
+          <div *ngIf="form.lastName.errors.required">Last Name is required</div>
+        </div>
+      </div>
+      <div class="form-group form-row">
+        <input type="text" placeholder="Middle Name" formControlName="middleName" class="form-control" [ngClass]="{ 'is-invalid': submittedRegisterForm && form.middleName.errors }" />
+        <div *ngIf="submittedRegisterForm && form.middleName.errors" class="invalid-feedback">
+          <div *ngIf="form.middleName.errors.required">Middle Name is required</div>
+        </div>
+      </div>
+      <div class="form-group form-row">
+        <input type="text" placeholder="Email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submittedRegisterForm && form.email.errors }" />
+        <div *ngIf="submittedRegisterForm && form.email.errors" class="invalid-feedback">
+          <div *ngIf="form.email.errors.required">Email is required</div>
+          <div *ngIf="form.email.errors.email">Email must be is valid</div>
+        </div>
+      </div>
+      <div class="form-group form-row">
+        <input type="password" placeholder="Password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submittedRegisterForm && form.password.errors }" />
+        <div *ngIf="submittedRegisterForm && form.password.errors" class="invalid-feedback">
+          <div *ngIf="form.password.errors.required">Password is required</div>
+          <div *ngIf="form.password.errors.minlength">Password must be at least 6 characters</div>
+        </div>
+      </div>
+      <div class="form-group form-row">
+        <input type="password" placeholder="Confirm Password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submittedRegisterForm && form.confirmPassword.errors }" />
+        <div *ngIf="submittedRegisterForm && form.confirmPassword.errors" class="invalid-feedback">
+          <div *ngIf="form.confirmPassword.errors.required">Confirm Password is required</div>
+          <div *ngIf="form.confirmPassword.errors.mustMatch">Passwords must match</div>
+        </div>
+      </div>
+      <div class="form-group form-row">
+        <ngx-recaptcha2 #captchaElem
+                        [siteKey]="siteKey"
+                        (error)="handleError()"
+                        [useGlobalDomain]="false"
+                        [size]="size"
+                        [hl]="lang"
+                        [theme]="theme"
+                        [type]="type"
+                        formControlName="recaptcha">
+        </ngx-recaptcha2>
+      </div>
+      <div class="form-row">
+        <input type="submit" name="login" class="login loginCreate-submit" value="Register">
+      </div>
+    </form>
+    <!--Forgot Password Form-->
+    <div *ngIf="isValidForgotPassword">
+      <div>please check your emai for reset password</div>
+    </div>
+    <form *ngIf="isForgotPassword && !isValidForgotPassword" [formGroup]="forgotPasswordForm" (ngSubmit)="onSubmitorgotPassword()">
+      <div *ngIf="isInvalidForgotPassword" class="danger-login">
+        <div>User is not found</div>
+      </div>
+      <div class="form-group form-row">
+        <input type="text" placeholder="Email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submittedForgotPasswordForm && form.email.errors }" />
+        <div *ngIf="submittedForgotPasswordForm && form.email.errors" class="invalid-feedback">
+          <div *ngIf="form.email.errors.required">Email is required</div>
+          <div *ngIf="form.email.errors.email">Email must be is valid</div>
+        </div>
+      </div>
+      <div class="form-group form-row">
+        <ngx-recaptcha2 #captchaElem
+                        [siteKey]="siteKey"
+                        (error)="handleError()"
+                        [useGlobalDomain]="false"
+                        [size]="size"
+                        [hl]="lang"
+                        [theme]="theme"
+                        [type]="type"
+                        formControlName="recaptcha">
+        </ngx-recaptcha2>
+      </div>
+      <div class="form-row">
+        <input type="submit" name="login" class="login loginCreate-submit" value="Forgot Password">
+      </div>
+    </form>
+    <!--Help-->
+    <div *ngIf="isLogin && !isForgotPassword" class="login-help">
+      <a href="#" (click)="changeForm()">Register</a> - <a href="#" (click)="forgotPassword()">Forgot Password</a>
+    </div>
+    <div *ngIf="!isLogin && !isForgotPassword" class="login-help">
+      <a href="#" (click)="changeForm()">Login</a>
+    </div>
+    <div *ngIf="isForgotPassword" class="login-help">
+      <a href="#" (click)="forgotPassword()">Login</a>
+    </div>
+  </div>
+  <ngx-ui-loader [loaderId]="'LoginLoader'" hasProgressBar="false"></ngx-ui-loader>
+</div>

@@ -1,0 +1,9 @@
+C:\Projects\Tracker\Busiess\bin\Debug\netstandard2.0\Busiess.deps.json
+C:\Projects\Tracker\Busiess\bin\Debug\netstandard2.0\Busiess.dll
+C:\Projects\Tracker\Busiess\bin\Debug\netstandard2.0\Busiess.pdb
+C:\Projects\Tracker\Busiess\obj\Debug\netstandard2.0\Busiess.csproj.CoreCompileInputs.cache
+C:\Projects\Tracker\Busiess\obj\Debug\netstandard2.0\Busiess.AssemblyInfoInputs.cache
+C:\Projects\Tracker\Busiess\obj\Debug\netstandard2.0\Busiess.AssemblyInfo.cs
+C:\Projects\Tracker\Busiess\obj\Debug\netstandard2.0\Busiess.dll
+C:\Projects\Tracker\Busiess\obj\Debug\netstandard2.0\Busiess.pdb
+C:\Projects\Tracker\Busiess\obj\Debug\netstandard2.0\Busiess.csprojAssemblyReference.cache
