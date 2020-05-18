@@ -1,0 +1,41 @@
+<app-nav-menu></app-nav-menu>
+<div class="container">
+  <div loaderId="TrackerLoader" ngxUiLoaderBlurred>
+    <H3>Your trackers</H3>
+    <div class="col-md-12">
+      <!--<label>Your trackers</label>-->
+      <div *ngIf="trackers.length > 0" class="row">
+        <div *ngFor="let tracker of trackers" class="col-md-12 tracker-div">
+          <div class="row">
+            <div class="col-md-2 margin-top-5">{{tracker.trackerName}}</div>
+            <div class="col-md-3 margin-top-5">
+              <label class="col-md-6">Total Time:</label>
+              <input class="col-md-4" type="number" name="{{tracker.trackerId}}^trackerTotalTime" [(ngModel)]="tracker.trackerTotalTime" disabled />
+              <span class="col-md-1 display-inline-block">min</span>
+            </div>
+            <div *ngIf="tracker.overTime == 0" class="col-md-3 margin-top-5">
+              <label class="col-md-6">Time Left:</label>
+              <input class="col-md-4" type="number" name="{{tracker.trackerId}}^trackerTimeLeft" [(ngModel)]="tracker.trackerTimeLeft" disabled />
+              <span class="col-md-1 display-inline-block">min</span>
+            </div>
+            <div *ngIf="tracker.overTime > 0" class="col-md-3 margin-top-5">
+              <label class="col-md-6">Over Time:</label>
+              <input class="col-md-4" type="number" name="{{tracker.trackerId}}^overTime" [(ngModel)]="tracker.overTime" disabled />
+              <span class="col-md-1 display-inline-block">min</span>
+            </div>
+            <button [disabled]="tracker.isActiveTracker" type="button" class="col-md-1 btn btn-sm btn-success" (click)="start(tracker)">Start</button>
+            <button [disabled]="!tracker.isActiveTracker" type="button" class="col-md-1 btn btn-sm btn-danger tracker-control" (click)="stop(tracker)">Stop</button>
+            <button [disabled]="tracker.isActiveTracker" type="button" class="col-md-1 btn btn-sm btn-outline-dark tracker-control" (click)="deleteTracker(tracker)">Delete</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="trackers.length == 0">
+        <H5>No have any trackers</H5>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="addNewTracker()">Add Tracker</button>
+
+      <app-add-tracker-modal #addTrackerModal (addNewTrackerComplete)="addNewTrackerComplete($event)"></app-add-tracker-modal>
+    </div>
+  </div>
+  <ngx-ui-loader [loaderId]="'TrackerLoader'" hasProgressBar="false"></ngx-ui-loader>
+</div>

@@ -1,0 +1,28 @@
+<ng-template #addTrackerModal>
+  <div loaderId="AddTrackerLoader" ngxUiLoaderBlurred>
+    <div class="modal-header tracker-modal-header">
+      Add New Tracker
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="createTrackerForm">
+        <div class="form-group">
+          <input type="text" placeholder="Tracker Name" formControlName="trackerName" class="form-control" [ngClass]="{ 'is-invalid': submittedTrackerForm && modalForm.trackerName.errors }" />
+          <div *ngIf="submittedTrackerForm && modalForm.trackerName.errors" class="invalid-feedback">
+            <div *ngIf="modalForm.trackerName.errors.required">Tracker Name is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="number" placeholder="Tracker Total Time" formControlName="trackerTotalTime" class="form-control" [ngClass]="{ 'is-invalid': submittedTrackerForm && modalForm.trackerTotalTime.errors }" />
+          <div *ngIf="submittedTrackerForm && modalForm.trackerTotalTime.errors" class="invalid-feedback">
+            <div *ngIf="modalForm.trackerTotalTime.errors.required">Tracker Total Time is required</div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer padding-10">
+      <button type="button" class="btn btn-sm btn-default pull-right" (click)="cancel()">Cancel</button>
+      <button type="button" class="btn btn-sm btn-primary pull-right" (click)="addTracker()">Save</button>
+    </div>
+  </div>
+  <ngx-ui-loader [loaderId]="'AddTrackerLoader'" hasProgressBar="false"></ngx-ui-loader>
+</ng-template>
